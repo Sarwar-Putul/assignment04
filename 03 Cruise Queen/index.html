@@ -60,22 +60,22 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input id="first-count" class="inp-style inp-width" type="number" value="1">
+                    <input id="first-count" class="inp-style inp-width" type="text" value="1">
                 </div>
                 <div class="plus-minus-btn">
-                        <button onclick ="handleCruiseChange('firstClass', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
-                        <button onclick ="handleCruiseChange('firstClass', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                        <button onclick ="handleFirstClassChange(true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        <button onclick ="handleFirstClassChange(false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
                 </div>
             </div>
             
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input id="eco-count" class="inp-style inp-width" type="number" value="1">
+                    <input id="eco-count" class="inp-style inp-width" type="text" value="1">
                 </div>
                 <div class="plus-minus-btn">
-                        <button onclick="handleCruiseChange('economy', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
-                        <button onclick="handleCruiseChange('economy', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                        <button onclick="handleEconomyChange(true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        <button onclick="handleEconomyChange(false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
                 </div>
             </div>
             <div class="calculations">
@@ -84,7 +84,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p id="total-price">$00</p>
+                        <p id="total-price">00</p>
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p id="tax-amount">50</p>
                     </div>
                 </div>
                 <hr>
@@ -102,7 +102,7 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p id="grand-total">550</p>
                     </div>
                 </div>
             </div>
@@ -111,25 +111,43 @@
     </main>
 
     <script>
-         function handleCruiseChange(cruise, isIncrease) {
-         const cruiseInput = document.getElementById(cruise +'-count');
-            const cruiseCount = parseInt(cruiseInput.value);
-            let cruiseNewCount = cruiseCount;
-            if(isIncrease == true) {
-                cruiseNewCount = cruisetCount + 1;
-            }
-            if(isIncrease == false && cruiseCount > 0) {
-                cruiseNewCount = cruiseCount -1;
-            }
-            cruiseInput.value = cruiseNewCount;
-            let cruiseTotal = 0;
-            if(cruise == 'firstClass'){
-                cruiseTotal = cruiseNewCount * 150;
-            }
-            if (cruise == 'economy'){
-                cruiseTotal = cruiseNewCount * 100;
-            }
+    //      function handleCruiseChange(cruise, isIncrease) {
+    //      const cruiseInput = document.getElementById(cruise +'-count');
+    //      const cruiseCount = parseInt(cruiseInput.value);
+    //         let cruiseNewCount = cruiseCount;
+    //         if(isIncrease == true) {
+    //             cruiseNewCount = cruisetCount + 1;
+    //         }
+    //         if(isIncrease == false && cruiseCount > 0) {
+    //             cruiseNewCount = cruiseCount -1;
+    //         }
+    //         cruiseInput.value = cruiseNewCount;
+    //         let cruiseTotal = 0;
+    //         if(cruise == 'firstClass'){
+    //             cruiseTotal = cruiseNewCount * 150;
+    //         }
+    //         if (cruise == 'economy'){
+    //             cruiseTotal = cruiseNewCount * 100;
+    //         }
+    //         document.getElementById('cruise').innerText = cruiseTotal;
            
+    //   }
+
+
+
+    function calculateTotal() {
+         const firstInput = document.getElementById('first-count');
+         const firstCount = parseInt(firstInput.value);
+         const ecoInput = document.getElementById('eco-count');
+         const ecoCount = parseInt(ecoInput.value);
+         const totalPrice = firstNewCount * 150 + ecoNewCount * 100;
+         document.getElementById('total-price').innerText = '$' + totalPrice;
+
+         const tax = Math.round(totalPrice * 0.1);
+         document.getElementById('tax-amount').innerText = '$' + tax;
+
+         const grandTotal = totalPrice + tax;
+         document.getElementById('grand-total').innerText = '$' + grandTotal;
       }
 
 
@@ -143,18 +161,19 @@
         //     handleFirstClassChange(false);
         //  });
 
-        //  function handleFirstClassChange(isIncrease){
-        //     const firstInput = document.getElementById('first-count');
-        //     const firstCount = parseInt(firstInput.value);
-        //     if(isIncrease == true) {
-        //         firstNewCount = firstCount + 1;
-        //     }
-        //     if(isIncrease == false) {
-        //         firstNewCount = firstCount - 1;
-        //     }
-        //     firstInput.value = firstNewCount;
-        //     const firstClassTotal = firstNewCount * 150;
-        // }
+         function handleFirstClassChange(isIncrease){
+            const firstInput = document.getElementById('first-count');
+            const firstCount = parseInt(firstInput.value);
+            if(isIncrease == true) {
+                firstNewCount = firstCount + 1;
+            }
+            if(isIncrease == false) {
+                firstNewCount = firstCount - 1;
+            }
+            firstInput.value = firstNewCount;
+            const firstClassTotal = firstNewCount * 150;
+            calculateTotal();
+        }
 
 
         // document.getElementById('eco-increase').addEventListener('click', function() {
@@ -164,18 +183,21 @@
         //     handleEconomyChange(false);
         //  });
 
-        //  function handleEconomyChange(isIncrease){
-        //     const ecoInput = document.getElementById('eco-count');
-        //     const ecoCount = parseInt(ecoInput.value);
-        //     if(isIncrease == true) {
-        //         ecoNewCount = ecoCount + 1;
-        //     }
-        //     if(isIncrease == false) {
-        //         ecoNewCount = ecoCount - 1;
-        //     }
-        //     ecoInput.value = ecoNewCount;
-        //     const economyTotal = ecoNewCount * 100;
-        // }
+         function handleEconomyChange(isIncrease){
+            const ecoInput = document.getElementById('eco-count');
+            const ecoCount = parseInt(ecoInput.value);
+            if(isIncrease == true) {
+                ecoNewCount = ecoCount + 1;
+            }
+            if(isIncrease == false) {
+                ecoNewCount = ecoCount - 1;
+            }
+            ecoInput.value = ecoNewCount;
+            const economyTotal = ecoNewCount * 100;
+            calculateTotal();
+        }
+
+
 
 
 
