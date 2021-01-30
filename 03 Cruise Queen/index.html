@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curise Booking</title>
-    <!-- Fonts -->
+    <!-- Links -->
+    <script src="script.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -37,7 +38,7 @@
         </div>
 
 
-        <div class="booking-form">
+        <div id="booking-area" class="booking-form">
             <h3>Book Ocean Time</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
@@ -60,7 +61,7 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input id="first-count" class="inp-style inp-width" type="text" value="1">
+                    <input id="first-count" class="inp-style inp-width" type="text" value="0">
                 </div>
                 <div class="plus-minus-btn">
                         <button onclick ="handleFirstClassChange(true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
@@ -71,7 +72,7 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input id="eco-count" class="inp-style inp-width" type="text" value="1">
+                    <input id="eco-count" class="inp-style inp-width" type="text" value="0">
                 </div>
                 <div class="plus-minus-btn">
                         <button onclick="handleEconomyChange(true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
@@ -84,7 +85,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p id="total-price">00</p>
+                        <p id="total-price">000</p>
                     </div>
                 </div>
 
@@ -93,7 +94,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p id="tax-amount">50</p>
+                        <p id="tax-amount">00</p>
                     </div>
                 </div>
                 <hr>
@@ -102,15 +103,83 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p id="grand-total">550</p>
+                        <p id="grand-total">000</p>
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button id="booked" class="btn-style">Book Now</button>
         </div>
+    </div>
+
+
+
+    <div id="confirmation-area">
+
+        <div id="booking-area" class="booking-form">
+            <h3>Confirmation Slip</h3>
+            <div class="input-group">
+                <label for="">Flying</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh -to- New York, United States">
+            </div>
+            
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+            </div>
+            <div class="confirfCalculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="confirm-subtotal">000</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="confirm-tax">00</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="confirm-total">000</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-style">Book Again</button>
+        </div>
+
+
+
+
+    </div>
     </main>
 
     <script>
+        const bookingbtn = document.getElementById('booked');
+        bookingbtn.addEventListener('click',function(){
+            const bookingArea = document.getElementById('booking-area');
+            bookingArea.style.display = "none";
+            const confirmationArea = document.getElementById('confirmation-area');
+            confirmationArea.style.display = "block";
+
+        })
     //      function handleCruiseChange(cruise, isIncrease) {
     //      const cruiseInput = document.getElementById(cruise +'-count');
     //      const cruiseCount = parseInt(cruiseInput.value);
@@ -130,72 +199,9 @@
     //             cruiseTotal = cruiseNewCount * 100;
     //         }
     //         document.getElementById('cruise').innerText = cruiseTotal;
-           
+    //         calculateTotal()
     //   }
 
-
-
-    function calculateTotal() {
-         const firstInput = document.getElementById('first-count');
-         const firstCount = parseInt(firstInput.value);
-         const ecoInput = document.getElementById('eco-count');
-         const ecoCount = parseInt(ecoInput.value);
-         const totalPrice = firstNewCount * 150 + ecoNewCount * 100;
-         document.getElementById('total-price').innerText = '$' + totalPrice;
-
-         const tax = Math.round(totalPrice * 0.1);
-         document.getElementById('tax-amount').innerText = '$' + tax;
-
-         const grandTotal = totalPrice + tax;
-         document.getElementById('grand-total').innerText = '$' + grandTotal;
-      }
-
-
-
-
-
-        // document.getElementById('first-increase').addEventListener('click', function() {
-        //     handleFirstClassChange(true);
-        //  });
-        //  document.getElementById('first-decrease').addEventListener('click', function() {
-        //     handleFirstClassChange(false);
-        //  });
-
-         function handleFirstClassChange(isIncrease){
-            const firstInput = document.getElementById('first-count');
-            const firstCount = parseInt(firstInput.value);
-            if(isIncrease == true) {
-                firstNewCount = firstCount + 1;
-            }
-            if(isIncrease == false) {
-                firstNewCount = firstCount - 1;
-            }
-            firstInput.value = firstNewCount;
-            const firstClassTotal = firstNewCount * 150;
-            calculateTotal();
-        }
-
-
-        // document.getElementById('eco-increase').addEventListener('click', function() {
-        //     handleEconomyChange(true);
-        //  });
-        //  document.getElementById('eco-decrease').addEventListener('click', function() {
-        //     handleEconomyChange(false);
-        //  });
-
-         function handleEconomyChange(isIncrease){
-            const ecoInput = document.getElementById('eco-count');
-            const ecoCount = parseInt(ecoInput.value);
-            if(isIncrease == true) {
-                ecoNewCount = ecoCount + 1;
-            }
-            if(isIncrease == false) {
-                ecoNewCount = ecoCount - 1;
-            }
-            ecoInput.value = ecoNewCount;
-            const economyTotal = ecoNewCount * 100;
-            calculateTotal();
-        }
 
 
 
